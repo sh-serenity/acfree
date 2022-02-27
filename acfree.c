@@ -17,13 +17,16 @@ char *strbuf(char *filename)
   return string;
 }
 
-
 int main()
 {
-  char *bname=(char*)calloc(20,sizeof(char));
-  char *ass;
-  bname="ass.html";
-  ass=strbuf(bname);
-  printf("%s", ass); 
+// char *bname=(char*)calloc(20,sizeof(char));
+//  char *ass;
+//  bname="ass.html";
+//  ass=strbuf(bname);
+// printf("%s", ass); 
+    while(FCGI_Accept() >= 0)
+    {
+             printf("Content-type: text/html\r\nStatus: 200 OK\r\n\r\nHello World!");
+    }
   return 0;
 }
