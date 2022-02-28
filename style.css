@@ -1,0 +1,136 @@
+    body	{
+        color: #6a4c00;
+        background-color: #808000;
+            margin: 0px;
+            padding: 0px;
+            font-family: 'Open Sans Condensed', sans-serif;
+            border: 2px solid #000000;
+        }
+    a	{
+    color: #6a4c00;
+        }
+    div	{ 
+        background-color: #efe6d0;
+        margin: 0px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 800px;
+        padding: 8px 32px 8px 32px;
+            align: center;
+        border: 2px solid #000000;
+}        
+    p.con {
+            width: 80%;
+            height: auto;
+            background: #ff0000;
+            text-align: left;
+            }
+        }
+    h1	{
+    max-width: 27em;
+    font-size: 32px;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px 24px 0px 24px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: right;
+        }
+    h1.f	{
+    float: left;
+    font-weight: bold;
+    padding-top: 2px;
+        }
+        p {
+            color: #4d3700;
+            font-family: 'Arial';
+            font-size: 15px;
+            max-width: 50em;
+            text-align:left;
+}  			    width: 830px;
+             display: inline-block;
+        }
+    .clicker {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+        }
+    .clicker:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    cursor: hand;
+        }
+    .hidden	{
+    display: none;
+        }
+    #fu	{
+    padding: 32px 0px 32px 0px;
+    width: 830px;
+        }
+    #head	{
+    color: #6a4c00;
+    font-size: 48px;
+    padding: 0px;
+    margin: 16px auto 0px auto;
+    border-bottom: 1px solid #6a4c00;
+    width: 830px;
+    border: 2px solid #000000;
+        }
+    #logo	{
+    font-size: 48px;
+    margin: 0px;
+    padding: 0px;
+    text-align: right;
+}
+.menu
+    {
+     position: absolute;
+     width: 200px;
+     left: 688px;
+     height: 100%; 
+    }
+    .lighterColor {
+     position: absolute;
+     width: 720px; 
+        background: #fc3;
+    }
+    .darkerColor  {
+        color: black;
+        padding: 3px;
+        border-radius: 3px;
+        display: inline-block
+    font-size: 32px;
+    position: absolute;
+     width: 200px;
+     left: 80%;
+    height: 100%; 
+    }
+
+a {
+    color: black;
+        background: white;
+        padding: 3px;
+        border-radius: 3px;
+        display: inline-block;
+
+}
+a {
+    color: black;
+        background: white;
+        padding: 3px;
+        border-radius: 3px;
+        display: inline-block;
+}
+.data {
+        padding: 3px;
+        border-radius: 3px;
+        display: inline-block;
+
+     position: absolute;
+     width: 720px; 
+     background: #fc3;
+}
+        }
