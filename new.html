@@ -1,14 +1,16 @@
 <body>
 <form action="/post" method="POST">
-  <input type="text" id="subj" name="subj"><br>
-  <textarea cols="80" id="editor" name="editor1" rows="10" data-sample-short>Vsem srat!!!!</textarea>
-  <script>
-    CKEDITOR.replace('editor', {
-      height: 260,
-      width: 700,
-      removeButtons: 'PasteFromWord'
-    });
-    </script>  
+subject;  <input type="text" id="subj" name="subj"><br>
+<div id="editor1" contenteditable="true">
+    <h1>Write!</h1>
+    <p></p>
+</div>
+<script>
+    // Turn off automatic editor creation first.
+    CKEDITOR.disableAutoInline = true;
+    CKEDITOR.inline( 'editor1' );
+</script>
+
 <input type="submit" value="post">
 </form>
 

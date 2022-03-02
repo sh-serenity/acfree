@@ -1,0 +1,14 @@
+<body>
+<form action="/post" method="POST">
+  <input type="text" id="subj" name="subj"><br>
+  <textarea cols="80" id="editor" name="editor1" rows="10" data-sample-short>I want big peace of meat!</textarea>
+  <script>
+    CKEDITOR.replace('editor', {
+      height: 260,
+      width: 700,
+      removeButtons: 'PasteFromWord'
+    });
+    </script>  
+<input type="submit" value="post">
+</form>
+

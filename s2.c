@@ -1,8 +1,9 @@
+#include <mysql/mysql.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "fcgi_stdio.h"
 #include <string.h>
 #include <ctype.h>
+#include "fcgi_stdio.h"
 
 const char *ENV_VARS[] = {
     "DOCUMENT_ROOT",
@@ -92,7 +93,7 @@ void printEnvVars ()
 
 int echofile(char *filename)
 {
-  FILE *f = fopen(filename      , "rb");
+  FILE *f = fopen(filename, "rb");
   fseek(f, 0, SEEK_END);
   long fsize = ftell(f);
   fseek(f, 0, SEEK_SET);  /* same as rewind(f); */
@@ -106,8 +107,80 @@ int echofile(char *filename)
   free(string);
   return 0;
 }
+
+MYSQL *siriinit() {
+  MYSQL *con = mysql_init(NULL);
+
+  if (con == NULL)
+  {
+      fprintf(stderr, "%s\n", mysql_error(con));
+      exit(1);
+  }
+
+  mysql_real_connect(con, "localhost", "siri", "somepizdy", "serenity", 0, NULL, 0);
+  return con;
+}
+int msg_post(MYSQL *con) {
+    char * method = getenv("REQUEST_METHOD");
+    if (!strcmp(method, "POST")) {
+        int ilen = atoi(getenv("CONTENT_LENGTH"));
+        char *bufp = malloc(ilen);
+        fread(bufp, ilen, 1, stdin);
+	char *decoded = malloc(ilen);
+        decoded = url_decode(bufp);
+
+        char *subj1;
+        char *token;
+
+	subj1 = strtok(decoded, "&editor1");
+	subj1 = strtok(subj1,"=");
+	printf(subj1);
+	
+	char *s1 = malloc(strlen(subj1));
+	strcpy(s1,subj1);
+	
+	while (subj1 != NULL) {
+		subj1 = strtok(NULL, "=");
+	    }
+
+
+//	decoded = url_decode(bufp);
+	token = strtok(decoded,
+	 "&editor");
+	token = strtok(NULL, "&editor");
+	token=strtok(token,"=");
+	token=strtok(NULL,"=");
+	printf(token);
+	
+	 
+	char *s2 = malloc(strlen(token));
+
+	strcpy(s2,token);
+
+	while (token != NULL) {
+		token = strtok(NULL, "=");
+	    }
+
+
+
+	char *query = malloc(ilen+1024);
+	sprintf(query,"INSERT INTO msg (subj, data) VALUES ('%s', '%s')", s1, s2);
+	printf(query);
+  	mysql_query(con, query); 
+	    //free(token);
+    	    //free(subj1);
+        free(query); 
+        free(decoded);
+        free(bufp);
+	free(s1);
+	free(s2);
+    }        
+  return 0; 
+}
 int main()
 {
+MYSQL *con;
+    con = siriinit();
     int count = 0;
     while(FCGI_Accept() >= 0)
     {
@@ -117,41 +190,28 @@ int main()
       char *bname=(char*)calloc(32,sizeof(char));
       bname="header.tpl";
       echofile("header.tpl");
-      printf("<h1>FastCGI Hello!</h1>"
+      printf("<h1>serenity-net-0.0.0alpha1</h1>"
                "Request number %d running on host <i>%s</i>\n",
                 ++count, getenv("SERVER_NAME"));             ;
       echofile("new.html");
       char *page = (char*)calloc(64, sizeof(char));
       page = getenv("REQUEST_URI");
-      char *left = (char*)calloc(64, sizeof(char));
       char *p1 = (char*)calloc(64, sizeof(char));
-      p1 = strstr(page,"/"); 
+      p1 = strtok(page,"/"); 
 //      int len = strlen(++p1);
       printf(p1);
-//      p1[len] = 0;
-      printf("%d",strlen(++p1));
-      if (strcmp(p1,"post") == 0)
-      {
-        char * method = getenv("REQUEST_METHOD");
-        if (!strcmp(method, "POST")) {
-          int ilen = atoi(getenv("CONTENT_LENGTH"));
-          char *bufp = malloc(ilen);
-          fread(bufp, ilen, 1, stdin);
-          printf("The POST data is<P>%s\n", url_decode(bufp));
-          free(bufp);
-        }
-    }
-      
+//      free(p1);
+    if (strcmp(p1,"post") == 0)
+    {
+        msg_post(con); 
+    }  
 	         else
-      { 
+    { 
     	printf("not found");
-      }
-
-//      p2 = strstr(found,"/");
-//      char *found2 = ++p2;
-//      printf("page:%s", found2);
+    }
        echofile("footer.tpl");
   }
-    
+
+  mysql_close(con);    
   return 0;
 } 
